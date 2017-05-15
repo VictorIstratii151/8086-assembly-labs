@@ -1,0 +1,115 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+lab1.exe -- emu8086 assembler version: 4.08  
+ 
+[ 01.03.2017  --  10:39:52 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       .MODEL SMALL
+[   2]        :                                       .STACK 100h
+[   3]        :                                       .DATA
+[   4]        :                                       
+[   5]    0100: 12 39                                 X DB 12H, 39H
+[   6]    0102: 43 10 20 71                           Y DW 1043H, 7120H
+[   7]    0106: 32 19 26 89 47 38 29 10               Z DD 89261932H, 10293847H
+[   8]        :                                       
+[   9]        :                                       .CODE
+[  10]        :                                       
+[  11]    0110:                                       begin:
+[  12]    0110: B8 06 3A                              mov ax, 3A06H   ;these 2 rows
+[  13]    0113: 8E D8                                 mov ds, ax
+[  14]    0115: C7 06 00 00 23 01                     mov [0], 123H     ;are mandatory
+[  15]        :                                       
+[  16]    011B: 8A 1E 00 00                           mov bl, X
+[  17]    011F: 8A 3E 01 00                           mov bh, [X+1]
+[  18]        :                                       
+[  19]    0123: 8B 0E 02 00                           mov cx, [Y]
+[  20]    0127: 8B 16 04 00                           mov dx, [Y+2]
+[  21]        :                                       
+[  22]    012B: 8B 36 06 00                           mov si, [Z]
+[  23]    012F: 8B 3E 0A 00                           mov di, [Z+4]
+[  24]        :                                       
+[  25]    0133: 53                                    PUSH bx
+[  26]    0134: 51                                    PUSH cx
+[  27]    0135: 52                                    PUSH dx
+[  28]    0136: 56                                    PUSH si
+[  29]    0137: 57                                    PUSH di
+[  30]        :                                       
+[  31]        :                                       
+[  32]    0138: 33 DB                                 XOR bx, bx
+[  33]    013A: 83 E1 00                              AND cx, 0
+[  34]    013D: BA 00 00                              mov dx, 0
+[  35]    0140: 33 F6                                 XOR si, si
+[  36]    0142: 33 FF                                 XOR di, di
+[  37]        :                                       
+[  38]        :                                       
+[  39]        :                                       ;POP di
+[  40]        :                                       ;POP si
+[  41]        :                                       ;POP dx
+[  42]        :                                       ;POP cx
+[  43]        :                                       ;POP bx
+[  44]        :                                       
+[  45]    0144: B3 12                                 mov bl, 12H; immediate
+[  46]    0146: B7 39                                 mov bh, 39H; addressing mode
+[  47]        :                                       
+[  48]        :                                       ;mov dx, [3] ;direct addressing mode
+[  49]    0148: 8B 16 02 00                           mov dx, y
+[  50]        :                                       
+[  51]    014C: 8B CB                                 mov cx, bx; register addressing mode
+[  52]        :                                       
+[  53]    014E: 8B 07                                 mov ax, [bx] ; indirect addressing mode
+[  54]        :                                       
+[  55]        :                                       
+[  56]        :                                       
+[  57]        :                                       
+[  58]        :                                       
+[  59]    0150: B8 00 4C                              mov ax, 4c00h
+[  60]    0153: CD 21                                 int 21h
+[  61]        :                                       
+[  62]        :                                       END begin
+[  63]        :                                       
+[  64]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 55      -   bytes on last page (l.byte)
+0003: 01      -   bytes on last page (h.byte)
+0004: 02      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 00      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 00      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: 00      -   SP - stack pointer (l.byte)
+0011: 01      -   SP - stack pointer (h.byte)
+0012: 15      -   check sum (l.byte)
+0013: 8F      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 11      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
