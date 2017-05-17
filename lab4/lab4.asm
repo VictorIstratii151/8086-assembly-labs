@@ -4,7 +4,7 @@
 .DATA
 
 
-String1 db 'lkk$'
+String1 db 'fdksjlfhkdsavdlkfsidsakjfclkjdshtkljdsoil;jrjislkjtk;ljrashlkjtii$'
 String2 db 'victoristratii$'
 error db 10,13,'not possible to write the name',10,13,'missing characters->$' ;10 stands for newline, 13 puts the cursor at the start of the row
 its_ok db 10,13,'The word was found$'
@@ -44,12 +44,29 @@ cmp bl,[si] ; compare with the current character from string1
 jne jump
 
 ; prepare for printing if the characters coincide
+ 
 
-mov al,[di]
-mov ah,0Eh
+ mov al, [di]
+ xor bx, bx
+ mov bl, 10b ;color
+ mov bh, 0h
+ mov ah, 09h
+ mov cx, 01h
+ int 10h
+ mov ah, 02h
+ inc dl
+ int 10h
 
+    
+ 
+;mov al,[di]
+;mov ah, 09h
+;mov cx, 1
+;mov bh, 0
+;mov bl, 01
+;mov ah,0Eh
 
-int 10h ; print the character from al
+;int 10h ; print the character from al
 
 jmp continue
 
@@ -65,7 +82,9 @@ not_found: mov al, '*'
            inc bh ; increase the number of missing characters
 
 continue: inc di ; go to the next character of string2
+          xor si, si
           jmp L1 ; repeat the search
+          
 
 
 the_end: cmp bh,0 ; check the number of not found characters
