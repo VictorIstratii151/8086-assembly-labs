@@ -1,13 +1,11 @@
 ;var 7
  
- DIM EQU 10
- 
 .MODEL SMALL
 .DATA   
 
 ;X DW 10h, 11h, 12h, 13h, 14h, 15h, 16h, 17h, 18h, 19h ; variables which will be stored in initial array
 X DW -10h, -11h, -12h, -13h, -14h, -15h, -16h, -17h, -18h, -19h
-DIM DW 0ah
+;DIM DW 0ah
 SUM DD 0h
 SUBSTR DW 10 dup(?)
 ; add your code here
@@ -53,12 +51,8 @@ sumarray PROC        ; define a procedure to compute the sum of elements
 evensubstr PROC
                mov cx, 0ah
                xor di, di      ;di is index
-               xor bx, bx
-               mov bx, 2       ;we will divided by 2(bx)
                
                loop2:
-                     xor ax, ax     ;clear ax
-                     mov ax, X[di]  ;move temporarily current element from array to ax for division
                      mov si, X[di]  ;move the current element to si, to store it then in the substr
                      
                  
@@ -81,16 +75,12 @@ evensubstr PROC
 oddsubstr PROC
                mov cx, 0ah
                xor di, di
-               xor bx, bx
-               mov bx, 2
                
                loop3:
-                     xor ax, ax
-                     mov ax, X[di]
                      mov si, X[di] 
                      
                      test si, 1
-                     jp loopback2
+                     jp loopback2   ;same thing as in the previous procedure, just change the jumps
                      jmp put_odd
                
                put_odd:

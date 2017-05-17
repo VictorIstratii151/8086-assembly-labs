@@ -1,9 +1,15 @@
+;var 7
+; y = x / 2 + z - 65    if z / 2 > x
+; y = 2 * z - 32        if z / 2 <= x
+
 
 .MODEL SMALL
 .DATA   
-
-X DW 1234h
-Z DW 5678h
+ 
+ X DW 5678h
+ Z DW 1234h
+;X DW 1234h
+;Z DW 5678h
 Y DD ?
 
 ; add your code here
@@ -15,19 +21,11 @@ begin:
     mov ds, ax      ;are mandatory
    
     
-    mov bx, Z  ;store Z variable in bx
-    add bx, 2  ;add to bx 2. Now have z + 2
-    cmp X, bx  ;if x <= z + 2
-    jle label1 ;jump to label1
-    
-    mov ax, Z  ;move z variable in ax
-    shr ax, 1 ;shift right ax one time, i.e. divide by 2                  
-    ;xor cx, cx ;clear cx
-    ;mov cx, 2  ;put 2 in cx
-    ;div cx     ;divide ax by cx. Now in ax have Z / 2
-    cmp ax, x  ;if z / 2 <= x
-    jle label2 ;jump to label2
-    
+    mov ax, Z ;store z in ax for division
+    shr ax, 1 ;shift right z 1 time (divide by 2)
+    cmp ax, X ;compare Z/2 with x
+    jg label1
+    jmp label2
    
 exit:   ;exit label
 
@@ -36,24 +34,22 @@ exit:   ;exit label
 
 
     label1:
-        mov ax, X  ;move X variable to ax
-        xor cx, cx ;clear cx
-        mov cx, 5  ;move 5 to cx
-        div cx     ;divide ax by cx. Now have X / 5
-        sub ax, 25 ;subtract 25. Now have x / 5 - 25
-        add ax, Z  ;now have x / 5 - 25 + z
-        mov Y, ax  ;move result to Y
-        jmp exit   ;exit
-    
-    label2:
-        mov ax, Z  ;move Z to ax
-        xor cx, cx ;clear cx
-        mov cx, 2
-        mul cx     ;multiply ax by cx (2)
-        sub ax, 32d;now have 2 * Z - 32
-        mov Y, ax  ;move result to Y
+        xor ax, ax ;clear ax
+        mov ax, X  ;store X in ax
+        shr ax, 1  ;divides ax by 2 by shifting 1 time right
+        add ax, Z  ;add Z to ax. now have X / 2 + Z
+        sub ax, 65d;subtract 65 from ax. Now have X / 2 + Z - 65
+        mov Y, ax  ;store the result in Y
         jmp exit
-
+        
+    label2:
+        xor ax, ax ;clear ax
+        mov ax, z  ;move z to ax
+        shl ax, 1  ;multiply ax by 2 by shifting 1 time left
+        sub ax, 32d;subtract 32 from ax. Now have 2 * x - 32
+        mov Y, ax  ;store result in Y
+        jmp exit   ;exit
+        
 END begin
 
 

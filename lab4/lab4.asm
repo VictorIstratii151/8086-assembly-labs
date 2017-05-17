@@ -1,33 +1,35 @@
-.model small
+.model SMALL
 
 
-.data
+.DATA
 
 
-String1 db 'lk$'
-String2 db 'joppppa$'
-error db 10,13,'not possible to write the name',10,13,'missing characters->$'
+String1 db 'lkk$'
+String2 db 'victoristratii$'
+error db 10,13,'not possible to write the name',10,13,'missing characters->$' ;10 stands for newline, 13 puts the cursor at the start of the row
 its_ok db 10,13,'The word was found$'
 
-.code
+.CODE
 
 
-start: 
+begin: 
 
-mov ax,data
-mov ds,ax
+mov ax, DATA
+mov ds, ax
 
 
-lea di, string2 ; move in di the EA of string2
-lea si, string1 ; move in si the EA of string1
+lea di, string2 ; move in di the effective address of string2
+lea si, string1 ; move in si the effective address of string1
 mov bh,0 ; count for missing characters
 
-mov ah,02 ; set cursor position
-mov dh,10 ; row
-mov dl,20 ; column
+mov ah, 02 ; set cursor position
+mov dh, 5 ; set the row
+mov dl, 10 ; set the column
 
 
-int 10h
+int 10h  ; interrupt for printing 
+
+
 
 L1: cmp [di],'$' ; check if the end is not reached for string2
     je the_end
@@ -74,7 +76,7 @@ the_end: cmp bh,0 ; check the number of not found characters
          mov ah,09
          int 21h
          
-         mov cx,0 ;clear cx
+         xor cx,cx ;clear cx
          mov cl,bh ; prepare the count to pop all missing characters from stack
 
 
@@ -95,4 +97,4 @@ tend: mov dx, offset its_ok
 end1: nop
 
 
-end start
+END begin
