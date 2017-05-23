@@ -17,8 +17,8 @@ msg3 db 10, 13, 'Enter ex: $'
 msg4 db 10, 13, 'Enter ey: $'
 msg5 db 10, 13, 'Resulting mantissa before normalizing: $'
 msg6 db 10, 13, 'Resulting exponent before normalizing: $'
-msg7 db 10, 13, 'Resulting mantissa before normalizing: $'
-msg8 db 10, 13, 'Resulting exponent before normalizing: $'
+msg7 db 10, 13, 'Resulting mantissa after normalizing: $'
+msg8 db 10, 13, 'Resulting exponent fater normalizing: $'
 empty_space db 10, 13, '$'
 real_result dw ?    ;here will be stored the real calculated result, as i need it in the algorithm
 
