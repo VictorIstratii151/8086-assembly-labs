@@ -227,13 +227,13 @@ normalization PROC                         ;procedure for normalizing the mantis
         
         need_shift:
             shl cx, 1                      ;shift the mantissa one time left
-            shr dx, 1                      ;shift exponent one time right
+            sub dl, 1                      ;subtract 1 from exponent 
             shr ax, 1                      ;shift the masks one time left
             shr bx, 1
             
             jmp start_comparing            ;continue looping
     exit_normalization:
-    
+   
     mov mz, cx                             ;store the new values in memory
     mov ez, dl
     
